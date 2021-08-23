@@ -1,4 +1,3 @@
-import { Visibility } from '@material-ui/icons';
 import React, { useState } from 'react';
 
 export default function Pagination({onFinish, visibility}) {
@@ -10,7 +9,7 @@ export default function Pagination({onFinish, visibility}) {
 
     return (
         <div onClick={handleClick} className={visibility}>
-            <p onClick={handleClick}>Загрузить ещё</p>
+            <p>Загрузить ещё</p>
         </div>
     )
 }
