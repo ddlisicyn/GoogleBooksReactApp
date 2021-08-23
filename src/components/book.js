@@ -5,9 +5,13 @@ export default function BookItem({imageLink, category, bookTitle, author}) {
         <div className="main__book-item">
             <img src={imageLink} alt='book cover'></img>
             <div>
-            <p>{category}</p>
-            <h5>{bookTitle}</h5>
-            <p>{author}</p>
+                <p>{category}</p>
+                <div className="main__book-title">
+                    <h5>{bookTitle}</h5>
+                </div>
+                <div className="main__book-authors">
+                    <p>{author}</p>
+                </div>
             </div>
         </div>
     );

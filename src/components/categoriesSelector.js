@@ -5,13 +5,12 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 const useStyles = makeStyles((theme) => ({
-  button: {
-    display: 'block',
-    marginTop: theme.spacing(2),
-  },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
+    padding: '2px 4px',
+    background: 'white',
+    borderRadius: '5px',
+    minWidth: 100
   },
 }));
 

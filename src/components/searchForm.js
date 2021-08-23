@@ -23,22 +23,22 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchForm({onFinish}) {
   const classes = useStyles();
-  const [request, setRequest] = useState('');
+  const [bookTitle, setBookTitle] = useState('');
 
   const handleChange = (event) => {
-    setRequest(event.target.value);
+    setBookTitle(event.target.value);
   };
 
   const handleClick = (event) => {
     event.preventDefault();
-    onFinish(request);
+    onFinish(bookTitle);
   };
 
   return (
     <Paper component="form" className={classes.root}>
       <InputBase
         className={classes.input}
-        placeholder="Search any book"
+        placeholder="Что ищете?"
         inputProps={{ 'aria-label': 'Search any book' }}
         onChange={handleChange}
       />
