@@ -35,15 +35,21 @@ function App() {
       <p>Всего найдено {resultsValue} книг</p> 
       <div className="main__content">
       {
-        data.map(book => (
-          <BookItem
-           id={book.id}
-           imageLink={book.volumeInfo.imageLinks.thumbnail}
-           category={book.volumeInfo.categories}
-           bookTitle={book.volumeInfo.title}
-           author={book.volumeInfo.authors}
-          />
-        ))
+        data.map(book => {
+          if (!book.volumeInfo.imageLinks) {
+            book.volumeInfo.imageLinks = {};
+            book.volumeInfo.imageLinks.thumbnail = 'https://riossport.ru/local/templates/riossport/assets/images/no-image.png';
+          }
+          return book;
+        }).map(book => (
+        <BookItem
+          key={book.id}
+          imageLink={book.volumeInfo.imageLinks.thumbnail}
+          category={book.volumeInfo.categories}
+          bookTitle={book.volumeInfo.title}
+          author={book.volumeInfo.authors}
+        />
+      ))
       }
       </div>
     </div>
