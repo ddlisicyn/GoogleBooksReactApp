@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function BookItem({imageLink, category, bookTitle, author}) {
     return (
-        <div className="bookItem">
+        <div className="main__book-item">
             <img src={imageLink} alt='book cover'></img>
             <div>
             <p>{category}</p>

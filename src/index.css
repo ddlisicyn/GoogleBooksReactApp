@@ -18,20 +18,28 @@ code {
 }
 
 .main__search-panel {
+  display: flex;
   justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 25vh;
 }
 
 .main__selector-menu {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .main__content {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5%;
 }
 
-.bookItem {
+.main__book-item {
   width: 260px;
   height: 350px;
   display: flex;
@@ -44,10 +52,26 @@ code {
   border-radius: 10px;
 }
 
-.bookItem p {
+.main__book-item p {
   color: gray;
 }
 
-.bookItem p, h5 {
+.main__book-item p, h5 {
   margin: 5px;
+}
+
+.main__pagination-button {
+  display: flex;
+  width: 150px;
+  height: 150px;
+  background: rgba(128, 128, 128, .15);
+  margin: 10px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: 20px;
+}
+
+.hide {
+  display: none;
 }
