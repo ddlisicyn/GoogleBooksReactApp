@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-export default function Pagination({onFinish, visibility}) {
-    const [startIndex, setStartIndex] = useState(0);
+export default function PaginationButton({onFinish, visibility}) {
+    const [startIndex, setStartIndex] = useState(30);
     const handleClick = () => {
         setStartIndex(startIndex + 30);
         onFinish(startIndex);

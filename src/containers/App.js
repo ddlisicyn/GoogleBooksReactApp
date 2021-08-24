@@ -3,7 +3,7 @@ import SearchForm from '../components/searchForm';
 import CategorySelector from '../components/categoriesSelector';
 import SortSelector from '../components/sortSelector';
 import BookItem from '../components/book';
-import Pagination from '../components/pagination';
+import PaginationButton from '../components/paginationButton';
 
 function App() {
   const [data, setData] = useState([]);
@@ -64,7 +64,7 @@ function App() {
         />
       ))
       }
-      <Pagination onFinish={onFinish} visibility={visibility}/>
+      <PaginationButton onFinish={onFinish} visibility={visibility}/>
       </div>
     </div>
   )
