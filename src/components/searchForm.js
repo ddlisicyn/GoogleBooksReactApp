@@ -39,14 +39,13 @@ export default function SearchForm({onFinish}) {
       <InputBase
         className={classes.input}
         placeholder="Что ищете?"
-        inputProps={{ 'aria-label': 'Search any book' }}
         onChange={handleChange}
       />
       <IconButton 
-       type="submit" 
-       className={classes.iconButton} 
-       aria-label="search"
-       onClick={handleClick}
+        type="submit" 
+        className={classes.iconButton} 
+        aria-label="search"
+        onClick={handleClick}
       >
         <SearchIcon />
       </IconButton>

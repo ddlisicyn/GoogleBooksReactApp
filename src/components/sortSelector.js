@@ -24,18 +24,16 @@ export default function SortSelector({bookTitle, category, onFinish}) {
   };
 
   return (
-    <div>
-      <FormControl className={classes.formControl}>
-        <Select
-          labelId="demo-controlled-open-select-label"
-          id="demo-controlled-open-select"
-          value={sort}
-          onChange={handleChange}
-        >
-          <MenuItem value={'relevance'}>relevance</MenuItem>
-          <MenuItem value={'newest'}>newest</MenuItem>
-        </Select>
-      </FormControl>
-    </div>
+    <FormControl className={classes.formControl}>
+      <Select
+        labelId="demo-controlled-open-select-label"
+        id="demo-controlled-open-select"
+        value={sort}
+        onChange={handleChange}
+      >
+        <MenuItem value={'relevance'}>relevance</MenuItem>
+        <MenuItem value={'newest'}>newest</MenuItem>
+      </Select>
+    </FormControl>
   );
 }

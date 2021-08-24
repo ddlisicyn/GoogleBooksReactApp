@@ -8,7 +8,6 @@ import PaginationButton from '../components/paginationButton';
 function App() {
   const [data, setData] = useState([]);
   const [resultsValue, setResultsValue] = useState('0');
-  const [visibility, setVisibility] = useState('hide');
   const [bookTitle, setBookTitle] = useState('');
   const [sort, setSort] = useState('');
   const [category, setCategory] = useState('');
@@ -26,7 +25,6 @@ function App() {
         if (json.totalItems) {
           setData(json.items);
           setResultsValue(json.totalItems);
-          setVisibility('main__pagination-button');
         } else {
           setData([]);
           setResultsValue(json.totalItems);
@@ -35,7 +33,7 @@ function App() {
     }
   };
 
-  const loadMore = (bookTitle, sort, category, startIndex, maxResults, visibility) => {
+  const loadMore = (bookTitle, sort, category, startIndex, maxResults) => {
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookTitle}` + 
             `&orderBy=${sort}&subject=${category}&startIndex=${startIndex}` + 
             `&maxResults=${maxResults}&key=AIzaSyDYgrEqAsmIyoRmLzx6rNDSAcGPubpDJ-Q`)
@@ -43,8 +41,8 @@ function App() {
       .then(json => {
           setData(data.concat(json.items));
           setResultsValue(json.totalItems);
-          setVisibility(visibility);
       });
+    if (maxResults < 30) setBookTitle('');
   }
 
   return (
@@ -96,7 +94,7 @@ function App() {
         bookTitle={bookTitle} 
         sort={sort} 
         category={category} 
-        visibility={visibility}
+        visibility={!!bookTitle}
         resultsValue={resultsValue}
       />
       </div>

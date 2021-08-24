@@ -5,12 +5,11 @@ export default function PaginationButton({bookTitle, sort, category, loadMore, v
     const handleClick = () => {
         let maxResults = (resultsValue - startIndex) < 30 ? (resultsValue - startIndex) : 30;
         setStartIndex(startIndex + 30);
-        let visibility = (maxResults !== 30) ? 'hide' : 'main__pagination-button';
         loadMore(bookTitle, sort, category, startIndex, maxResults, visibility);
     };
 
     return (
-        <div onClick={handleClick} className={visibility}>
+        <div onClick={handleClick} className={visibility ? 'main__pagination-button' : 'hide'}>
             <p>Загрузить ещё</p>
         </div>
     )

@@ -24,23 +24,21 @@ export default function CategorySelector({bookTitle, sort, onFinish}) {
   };
 
   return (
-    <div>
-      <FormControl className={classes.formControl}>
-        <Select
-          labelId="demo-controlled-open-select-label"
-          id="demo-controlled-open-select"
-          value={category}
-          onChange={handleChange}
-        >
-          <MenuItem value={'all'}>all</MenuItem>
-          <MenuItem value={'art'}>art</MenuItem>
-          <MenuItem value={'biography'}>biography</MenuItem>
-          <MenuItem value={'computers'}>computers</MenuItem>
-          <MenuItem value={'history'}>history</MenuItem>
-          <MenuItem value={'medical'}>medical</MenuItem>
-          <MenuItem value={'poetry'}>poetry</MenuItem>
-        </Select>
-      </FormControl>
-    </div>
+    <FormControl className={classes.formControl}>
+      <Select
+        labelId="demo-controlled-open-select-label"
+        id="demo-controlled-open-select"
+        value={category}
+        onChange={handleChange}
+      >
+        <MenuItem value={'all'}>all</MenuItem>
+        <MenuItem value={'art'}>art</MenuItem>
+        <MenuItem value={'biography'}>biography</MenuItem>
+        <MenuItem value={'computers'}>computers</MenuItem>
+        <MenuItem value={'history'}>history</MenuItem>
+        <MenuItem value={'medical'}>medical</MenuItem>
+        <MenuItem value={'poetry'}>poetry</MenuItem>
+      </Select>
+    </FormControl>
   );
 }
