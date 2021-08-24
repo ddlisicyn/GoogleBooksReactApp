@@ -5,6 +5,8 @@ import SortSelector from '../components/sortSelector';
 import BookItem from '../components/book';
 import PaginationButton from '../components/paginationButton';
 
+//For code review
+
 function App() {
   const [data, setData] = useState([]);
   const [resultsValue, setResultsValue] = useState('0');
