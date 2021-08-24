@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import SearchForm from '../components/searchForm';
 import CategorySelector from '../components/categoriesSelector';
 import SortSelector from '../components/sortSelector';
@@ -9,12 +9,18 @@ function App() {
   const [data, setData] = useState([]);
   const [resultsValue, setResultsValue] = useState('0');
   const [visibility, setVisibility] = useState('hide');
+  const [bookTitle, setBookTitle] = useState('');
+  const [sort, setSort] = useState('');
+  const [category, setCategory] = useState('');
 
-  const onFinish = (bookTitle, sort = 'relevance', category = 'all', startIndex = 0) => {
-    if (bookTitle)
+  const onFinish = (bookTitle, sort = 'relevance', category = 'all') => {
+    if (bookTitle) {
+      setBookTitle(bookTitle);
+      setSort(sort);
+      setCategory(category);
       fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookTitle}` + 
-        `&orderBy=${sort}&subject=${category}&startIndex=${startIndex}` + 
-        `&maxResults=30&key=AIzaSyDYgrEqAsmIyoRmLzx6rNDSAcGPubpDJ-Q`)
+            `&orderBy=${sort}&subject=${category}` + 
+            `&maxResults=30&key=AIzaSyDYgrEqAsmIyoRmLzx6rNDSAcGPubpDJ-Q`)
       .then(response => response.json())
       .then(json => {
         if (json.totalItems) {
@@ -26,17 +32,43 @@ function App() {
           setResultsValue(json.totalItems);
         }
       });
+    }
   };
+
+  const loadMore = (bookTitle, sort, category, startIndex) => {
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookTitle}` + 
+            `&orderBy=${sort}&subject=${category}&startIndex=${startIndex}` + 
+            `&maxResults=30&key=AIzaSyDYgrEqAsmIyoRmLzx6rNDSAcGPubpDJ-Q`)
+      .then(response => response.json())
+      .then(json => {
+        if (json.totalItems) {
+          setData(data.concat(json.items));
+          setVisibility('main__pagination-button');
+        } else {
+          setData([]);
+        }
+      });
+  }
+
+  console.log(data);
 
   return (
     <div className="main">
       <div className="main__search-panel">
         <SearchForm onFinish={onFinish}/>
         <div className="main__selector-menu">
-          <p>Категории </p>
-          <CategorySelector onFinish={onFinish}/>
+          <p>Категории</p>
+          <CategorySelector 
+            onFinish={onFinish}
+            bookTitle={bookTitle} 
+            sort={sort} 
+          />
           <p>Сортировать по</p>
-          <SortSelector onFinish={onFinish}/>
+          <SortSelector 
+            onFinish={onFinish}
+            bookTitle={bookTitle} 
+            category={category} 
+          />
         </div>
         <p>Всего найдено {resultsValue} книг</p> 
       </div>
@@ -56,7 +88,7 @@ function App() {
           return book;
         }).map(book => (
         <BookItem
-          key={book.id}
+          key={book.id + book.etag}
           imageLink={book.volumeInfo.imageLinks.thumbnail}
           category={book.volumeInfo.categories}
           bookTitle={book.volumeInfo.title}
@@ -64,7 +96,13 @@ function App() {
         />
       ))
       }
-      <PaginationButton onFinish={onFinish} visibility={visibility}/>
+      <PaginationButton
+        loadMore={loadMore}
+        bookTitle={bookTitle} 
+        sort={sort} 
+        category={category} 
+        visibility={visibility}
+      />
       </div>
     </div>
   )

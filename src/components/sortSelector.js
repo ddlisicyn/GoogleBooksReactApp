@@ -14,13 +14,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SortSelector({onFinish}) {
+export default function SortSelector({bookTitle, category, onFinish}) {
   const classes = useStyles();
   const [sort, setSort] = useState('newest');
 
   const handleChange = (event) => {
     setSort(event.target.value);
-    onFinish(sort);
+    onFinish(bookTitle, sort, category);
   };
 
   return (
