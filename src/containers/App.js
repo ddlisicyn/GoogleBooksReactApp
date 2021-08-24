@@ -35,22 +35,17 @@ function App() {
     }
   };
 
-  const loadMore = (bookTitle, sort, category, startIndex) => {
+  const loadMore = (bookTitle, sort, category, startIndex, maxResults, visibility) => {
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookTitle}` + 
             `&orderBy=${sort}&subject=${category}&startIndex=${startIndex}` + 
-            `&maxResults=30&key=AIzaSyDYgrEqAsmIyoRmLzx6rNDSAcGPubpDJ-Q`)
+            `&maxResults=${maxResults}&key=AIzaSyDYgrEqAsmIyoRmLzx6rNDSAcGPubpDJ-Q`)
       .then(response => response.json())
       .then(json => {
-        if (json.totalItems) {
           setData(data.concat(json.items));
-          setVisibility('main__pagination-button');
-        } else {
-          setData([]);
-        }
+          setResultsValue(json.totalItems);
+          setVisibility(visibility);
       });
   }
-
-  console.log(data);
 
   return (
     <div className="main">
@@ -80,7 +75,7 @@ function App() {
             book.volumeInfo.imageLinks.thumbnail = 'https://riossport.ru/local/templates/riossport/assets/images/no-image.png';
           }
           if (!book.volumeInfo.categories) {
-            book.volumeInfo.categories = 'No catogories';
+            book.volumeInfo.categories = 'No categories';
           }
           if (!book.volumeInfo.authors) {
             book.volumeInfo.authors = 'No authors';
@@ -102,6 +97,7 @@ function App() {
         sort={sort} 
         category={category} 
         visibility={visibility}
+        resultsValue={resultsValue}
       />
       </div>
     </div>
