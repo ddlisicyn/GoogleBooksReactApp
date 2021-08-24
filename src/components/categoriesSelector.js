@@ -14,13 +14,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CategorySelector({onFinish}) {
+export default function CategorySelector({bookTitle, sort, onFinish}) {
   const classes = useStyles();
   const [category, setCategory] = useState('all');
 
   const handleChange = (event) => {
     setCategory(event.target.value);
-    onFinish(event.target.value);
+    onFinish(bookTitle, sort, category);
   };
 
   return (

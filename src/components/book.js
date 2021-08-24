@@ -15,4 +15,4 @@ export default function BookItem({imageLink, category, bookTitle, author}) {
             </div>
         </div>
     );
-} 
+}

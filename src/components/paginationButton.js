@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-export default function Pagination({onFinish, visibility}) {
-    const [startIndex, setStartIndex] = useState(0);
+export default function PaginationButton({bookTitle, sort, category, loadMore, visibility}) {
+    const [startIndex, setStartIndex] = useState(30);
     const handleClick = () => {
         setStartIndex(startIndex + 30);
-        onFinish(startIndex);
+        loadMore(bookTitle, sort, category, startIndex);
     };
 
     return (
