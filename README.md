@@ -7,7 +7,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - Material UI
 - Babel
 - BEM
-- Responsive css layout
+- Sass
+- Adaptive CSS layout
 - Redux (in the future versions)
 
 ## Deployed Here
