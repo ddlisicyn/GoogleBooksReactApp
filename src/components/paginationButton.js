@@ -4,7 +4,6 @@ export default function PaginationButton({bookTitle, sort, category, loadMore, v
     const [startIndex, setStartIndex] = useState(30);
     const handleClick = () => {
         let maxResults = (resultsValue - startIndex) < 30 ? (resultsValue - startIndex) : 30;
-        console.log(startIndex, maxResults);
         setStartIndex(startIndex + 30);
         loadMore(bookTitle, sort, category, startIndex, maxResults, visibility);
     };

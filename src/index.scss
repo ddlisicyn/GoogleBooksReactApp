@@ -1,0 +1,88 @@
+@import 'components/searchPanel.scss';
+@import 'components/selectors.scss';
+@import 'components/bookItem.scss';
+@import 'components/paginationButton.scss';
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+  
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+  
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  
+.main__content {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 6%;
+}
+
+@media(max-width: 2048px) {
+    .main__content {
+        margin: 0 8.5%;
+    }
+}
+
+@media(max-width: 1920px) {
+    .main__content {
+        margin: 0 5.5%;
+    }
+}
+
+@media(max-width: 1680px) {
+    .main__content {
+        margin: 0 8.2%;
+    }
+}
+
+@media(max-width: 1600px) {
+    .main__content {
+        margin: 0 6.2%;
+    }
+}
+
+@media(max-width: 1440px) {
+    .main__content {
+        margin: 0 10.5%;
+    }
+}
+
+@media(max-width: 1366px) {
+    .main__content {
+        margin: 0 8.5%;
+    }
+}
+
+@media(max-width: 1280px) {
+    .main__content {
+        margin: 0 6%;
+    }
+}
+
+@media(max-width: 1024px) {
+    .main__content {
+        margin: 0 8.9%;
+    }
+}
+
+@media(max-width: 768px) {
+    .main__content {
+        margin: 0 12.5%;
+    }
+}
+
+.hide {
+    display: none;
+}

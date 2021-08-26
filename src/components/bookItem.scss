@@ -1,0 +1,60 @@
+.main__book-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    cursor: pointer;
+    width: 260px;
+    height: 350px;
+    margin: 10px;
+    background: rgba(128, 128, 128, .15);
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.3);
+    
+    p {
+      color: gray;
+    }
+
+    p, h5 {
+      margin: 5px;
+    }
+
+    img {
+      max-width: 130px;
+      max-height: 180px;
+      min-height: 180px;
+    }
+}
+  
+.main__book-item:hover {
+    background: rgba(30, 162, 250, 0.15);
+    transition: 1s;
+}
+
+%text-overflow-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+%description-size {
+    width: 220px;
+    height: 17px;
+}
+  
+.main__book-title {
+    @extend %description-size;
+
+    h5 {
+      @extend %text-overflow-ellipsis;
+    }
+}
+  
+.main__book-authors {
+    @extend %description-size;
+
+    p {
+      @extend %text-overflow-ellipsis;
+    }
+}
