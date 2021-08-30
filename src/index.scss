@@ -1,6 +1,7 @@
 @import 'components/searchPanel/searchPanel.scss';
 @import 'components/selectors/selectors.scss';
 @import 'components/bookItem/bookItem.scss';
+@import 'components/bookCard/bookCard.scss';
 @import 'components/paginationButton/paginationButton.scss';
 @import 'components/loader/loader.scss';
 
@@ -28,6 +29,10 @@ code {
     display: flex;
     flex-wrap: wrap;
     width: calc(280px * 5);
+
+    a {
+        text-decoration: none;
+    }
 }
 
 @media (max-width: 1440px) {

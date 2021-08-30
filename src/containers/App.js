@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useHistory
+} from "react-router-dom";
 import BookItem from '../components/bookItem/bookItem';
 import PaginationButton from '../components/paginationButton/paginationButton';
 import SearchPanel from '../components/searchPanel/searchPanel';
 import Loader from '../components/loader/loader';
+import BookCard from '../components/bookCard/bookCard';
 
 function App() {
   const [data, setData] = useState([]);
@@ -11,6 +19,7 @@ function App() {
   const [sort, setSort] = useState('');
   const [category, setCategory] = useState('');
   const [loaderVisibility, setLoaderVisibility] = useState(true);
+  const history = useHistory();
 
   const onFinish = (bookTitle, sort = 'relevance', category = 'all') => {
     if (bookTitle) {
@@ -49,40 +58,50 @@ function App() {
     if (maxResults < 30) setBookTitle('');
   }
 
+  const onBookClick = (id) => {
+    history.push(`/card/${id}`);
+  }
+
   return (
-    <div className="main">
-      <SearchPanel
-        onFinish={onFinish}
-        bookTitle={bookTitle}
-        sort={sort}
-        category={category}
-        resultsValue={resultsValue}
-      />
-      <div className="main__content">
-      {
-        data.map(book => (
-          <BookItem
-            key={book.id + book.etag}
-            thumbnail={book.volumeInfo?.imageLinks?.thumbnail}
-            category={book.volumeInfo?.categories}
-            bookTitle={book.volumeInfo.title}
-            author={book.volumeInfo?.authors}
-          />
-        ))
-      }
+      <div className="main">
+        <SearchPanel
+          onFinish={onFinish}
+          bookTitle={bookTitle}
+          sort={sort}
+          category={category}
+          resultsValue={resultsValue}
+        />
+        <div className="main__content">
+        {
+          data.map(book => (
+            <BookItem
+              key={book.id + book.etag}
+              thumbnail={book.volumeInfo?.imageLinks?.thumbnail}
+              category={book.volumeInfo?.categories}
+              bookTitle={book.volumeInfo.title}
+              authors={book.volumeInfo?.authors}
+              onClick={() => onBookClick(book.id)}
+            />
+          ))
+        }
+        <Switch>
+          <Route path='/card/:id'>
+            <BookCard />
+          </Route>
+        </Switch>
+        </div>
+        <Loader
+          visibility={loaderVisibility}
+        />
+        <PaginationButton
+          loadMore={loadMore}
+          bookTitle={bookTitle} 
+          sort={sort} 
+          category={category} 
+          visibility={!!bookTitle}
+          resultsValue={resultsValue}
+        />
       </div>
-      <Loader
-        visibility={loaderVisibility}
-      />
-      <PaginationButton
-        loadMore={loadMore}
-        bookTitle={bookTitle} 
-        sort={sort} 
-        category={category} 
-        visibility={!!bookTitle}
-        resultsValue={resultsValue}
-      />
-    </div>
   )
 }
 
