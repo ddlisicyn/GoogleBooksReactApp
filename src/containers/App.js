@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import BookItem from '../components/bookItem/bookItem';
 import PaginationButton from '../components/paginationButton/paginationButton';
 import SearchPanel from '../components/searchPanel/searchPanel';
+import Loader from '../components/loader/loader';
 
 function App() {
   const [data, setData] = useState([]);
@@ -9,9 +10,11 @@ function App() {
   const [bookTitle, setBookTitle] = useState('');
   const [sort, setSort] = useState('');
   const [category, setCategory] = useState('');
+  const [loaderVisibility, setLoaderVisibility] = useState(true);
 
   const onFinish = (bookTitle, sort = 'relevance', category = 'all') => {
     if (bookTitle) {
+      setLoaderVisibility(false);
       setBookTitle(bookTitle);
       setSort(sort);
       setCategory(category);
@@ -20,6 +23,7 @@ function App() {
             `&maxResults=30&key=AIzaSyDYgrEqAsmIyoRmLzx6rNDSAcGPubpDJ-Q`)
       .then(response => response.json())
       .then(json => {
+        setLoaderVisibility(true);
         if (json.totalItems) {
           setData(json.items);
           setResultsValue(json.totalItems);
@@ -32,11 +36,13 @@ function App() {
   };
 
   const loadMore = (bookTitle, sort, category, startIndex, maxResults) => {
+    setLoaderVisibility(false);
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookTitle}` + 
             `&orderBy=${sort}&subject=${category}&startIndex=${startIndex}` + 
             `&maxResults=${maxResults}&key=AIzaSyDYgrEqAsmIyoRmLzx6rNDSAcGPubpDJ-Q`)
       .then(response => response.json())
       .then(json => {
+          setLoaderVisibility(true);
           setData(data.concat(json.items));
           setResultsValue(json.totalItems);
       });
@@ -65,12 +71,15 @@ function App() {
         ))
       }
       </div>
+      <Loader
+        visibility={loaderVisibility}
+      />
       <PaginationButton
         loadMore={loadMore}
         bookTitle={bookTitle} 
         sort={sort} 
         category={category} 
-        visibility={!!bookTitle}
+        visibility={!!data[0]}
         resultsValue={resultsValue}
       />
     </div>
