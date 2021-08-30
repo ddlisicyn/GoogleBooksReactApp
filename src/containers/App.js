@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import BookItem from '../components/bookItem';
-import PaginationButton from '../components/paginationButton';
-import SearchPanel from '../components/searchPanel';
+import BookItem from '../components/bookItem/bookItem';
+import PaginationButton from '../components/paginationButton/paginationButton';
+import SearchPanel from '../components/searchPanel/searchPanel';
 
 function App() {
   const [data, setData] = useState([]);

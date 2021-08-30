@@ -1,5 +1,5 @@
 import React from 'react';
-import bookCover from "../noThumbnail.png";
+import bookCover from "./noThumbnail.png";
 
 export default function BookItem({thumbnail, category, bookTitle, author}) {
     author = (author && author.length > 1) ? author.join(', ') : author;
