@@ -79,7 +79,7 @@ function App() {
         bookTitle={bookTitle} 
         sort={sort} 
         category={category} 
-        visibility={!!data[0]}
+        visibility={!!bookTitle}
         resultsValue={resultsValue}
       />
     </div>
