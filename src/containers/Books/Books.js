@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
-import BookItem from '../../components/bookItem/bookItem';
-import PaginationButton from '../../components/paginationButton/paginationButton';
-import SearchPanel from '../../components/searchPanel/searchPanel';
-import Loader from '../../components/loader/loader';
+import BookCard from '../../components/BookCard/BookCard';
+import PaginationButton from '../../components/PaginationButton/PaginationButton';
+import SearchPanel from '../../components/SearchPanel/SearchPanel';
+import Loader from '../../components/Loader/Loader';
+import { getBooks } from '../../API/fetch';
 
 function Books() {
   const [data, setData] = useState([]);
@@ -20,33 +21,29 @@ function Books() {
       setBookTitle(bookTitle);
       setSort(sort);
       setCategory(category);
-      fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookTitle}` + 
-            `&orderBy=${sort}&subject=${category}` + 
-            `&maxResults=30&key=AIzaSyDYgrEqAsmIyoRmLzx6rNDSAcGPubpDJ-Q`)
-      .then(response => response.json())
-      .then(json => {
-        setLoaderVisibility(true);
-        if (json.totalItems) {
-          setData(json.items);
-          setResultsValue(json.totalItems);
-        } else {
-          setData([]);
-          setResultsValue(json.totalItems);
-        }
+
+      getBooks(bookTitle, sort, category)
+        .then(data => {
+            setLoaderVisibility(true);
+            if (data.totalItems) {
+                setData(data.items);
+                setResultsValue(data.totalItems);
+            } else {
+                setData([]);
+                setResultsValue(data.totalItems);
+            }
       });
     }
   };
 
   const loadMore = (bookTitle, sort, category, startIndex, maxResults) => {
     setLoaderVisibility(false);
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookTitle}` + 
-            `&orderBy=${sort}&subject=${category}&startIndex=${startIndex}` + 
-            `&maxResults=${maxResults}&key=AIzaSyDYgrEqAsmIyoRmLzx6rNDSAcGPubpDJ-Q`)
-      .then(response => response.json())
-      .then(json => {
-          setLoaderVisibility(true);
-          setData(data.concat(json.items));
-          setResultsValue(json.totalItems);
+
+    getBooks(bookTitle, sort, category, startIndex, maxResults)
+        .then(json => {
+            setLoaderVisibility(true);
+            setData(data.concat(json.items));
+            setResultsValue(json.totalItems);
       });
     if (maxResults < 30) setBookTitle('');
   };
@@ -67,7 +64,7 @@ function Books() {
         <div className="main__content">
         {
           data.map(book => (
-            <BookItem
+            <BookCard
               key={book.id + book.etag}
               thumbnail={book.volumeInfo?.imageLinks?.thumbnail}
               category={book.volumeInfo?.categories}

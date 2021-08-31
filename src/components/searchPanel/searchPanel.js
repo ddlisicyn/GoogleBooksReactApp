@@ -1,7 +1,7 @@
 import React from 'react';
-import SearchForm from '../searchForm/searchForm';
-import CategorySelector from '../selectors/categoriesSelector';
-import SortSelector from '../selectors/sortSelector';
+import SearchForm from '../SearchForm/SearchForm';
+import CategorySelector from '../Selectors/CategoriesSelector';
+import SortSelector from '../Selectors/SortSelector';
 
 export default function SearchPanel ({onFinish, bookTitle, sort, category, resultsValue}) {
     return (
