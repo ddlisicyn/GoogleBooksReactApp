@@ -4,11 +4,12 @@ Simple books search system based on React App and inspired by GoogleBooksAPI.
 ## Technology stack
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 - React (functional components w/ hooks)
+- React Router
 - Material UI
 - Babel
 - BEM
 - Sass
-- Adaptive CSS layout
+- Adaptive and responsive CSS layout
 - Redux (in the future versions)
 
 ## Deployed Here
