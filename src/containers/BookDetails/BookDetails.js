@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    useParams
-  } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-export default function BookCard() {
+export function BookDetails() {
     const { id } = useParams();
     const [book, setBook] = useState({volumeInfo: {imageLinks: {}}});
 
