@@ -1,0 +1,59 @@
+@import 'components/searchPanel/searchPanel.scss';
+@import 'components/selectors/selectors.scss';
+@import 'components/bookItem/bookItem.scss';
+@import 'components/paginationButton/paginationButton.scss';
+@import 'components/loader/loader.scss';
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+  
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+  
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  
+.main__content {
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(280px * 5);
+}
+
+@media (max-width: 1440px) {
+    .main__content {
+        width: calc(280px * 4);
+    }
+}
+
+@media (max-width: 1160px) {
+    .main__content {
+        width: calc(280px * 3);
+    }
+}
+
+@media (max-width: 880px) {
+    .main__content {
+        width: calc(280px * 2);
+    }
+}
+
+@media (max-width: 580px) {
+    .main__content {
+        width: 280px;
+    }
+}
+
+.hide {
+    display: none;
+}

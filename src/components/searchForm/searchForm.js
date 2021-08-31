@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
@@ -39,7 +39,7 @@ export default function SearchForm({onFinish}) {
     <Paper component="form" className={classes.root}>
       <InputBase
         className={classes.input}
-        placeholder="Что ищете?"
+        placeholder="What are you looking for?"
         onChange={handleChange}
       />
       <IconButton 

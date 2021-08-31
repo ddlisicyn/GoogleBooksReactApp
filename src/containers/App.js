@@ -1,9 +1,8 @@
-import React, { useMemo, useState } from 'react';
-import SearchForm from '../components/searchForm';
-import CategorySelector from '../components/categoriesSelector';
-import SortSelector from '../components/sortSelector';
-import BookItem from '../components/book';
-import PaginationButton from '../components/paginationButton';
+import React, { useState } from 'react';
+import BookItem from '../components/bookItem/bookItem';
+import PaginationButton from '../components/paginationButton/paginationButton';
+import SearchPanel from '../components/searchPanel/searchPanel';
+import Loader from '../components/loader/loader';
 
 function App() {
   const [data, setData] = useState([]);
@@ -11,9 +10,11 @@ function App() {
   const [bookTitle, setBookTitle] = useState('');
   const [sort, setSort] = useState('');
   const [category, setCategory] = useState('');
+  const [loaderVisibility, setLoaderVisibility] = useState(true);
 
   const onFinish = (bookTitle, sort = 'relevance', category = 'all') => {
     if (bookTitle) {
+      setLoaderVisibility(false);
       setBookTitle(bookTitle);
       setSort(sort);
       setCategory(category);
@@ -22,6 +23,7 @@ function App() {
             `&maxResults=30&key=AIzaSyDYgrEqAsmIyoRmLzx6rNDSAcGPubpDJ-Q`)
       .then(response => response.json())
       .then(json => {
+        setLoaderVisibility(true);
         if (json.totalItems) {
           setData(json.items);
           setResultsValue(json.totalItems);
@@ -34,11 +36,13 @@ function App() {
   };
 
   const loadMore = (bookTitle, sort, category, startIndex, maxResults) => {
+    setLoaderVisibility(false);
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookTitle}` + 
             `&orderBy=${sort}&subject=${category}&startIndex=${startIndex}` + 
             `&maxResults=${maxResults}&key=AIzaSyDYgrEqAsmIyoRmLzx6rNDSAcGPubpDJ-Q`)
       .then(response => response.json())
       .then(json => {
+          setLoaderVisibility(true);
           setData(data.concat(json.items));
           setResultsValue(json.totalItems);
       });
@@ -47,48 +51,29 @@ function App() {
 
   return (
     <div className="main">
-      <div className="main__search-panel">
-        <SearchForm onFinish={onFinish}/>
-        <div className="main__selector-menu">
-          <p>Категории</p>
-          <CategorySelector 
-            onFinish={onFinish}
-            bookTitle={bookTitle} 
-            sort={sort} 
-          />
-          <p>Сортировать по</p>
-          <SortSelector 
-            onFinish={onFinish}
-            bookTitle={bookTitle} 
-            category={category} 
-          />
-        </div>
-        <p>Всего найдено {resultsValue} книг</p> 
-      </div>
+      <SearchPanel
+        onFinish={onFinish}
+        bookTitle={bookTitle}
+        sort={sort}
+        category={category}
+        resultsValue={resultsValue}
+      />
       <div className="main__content">
       {
-        data.map(book => {
-          if (!book.volumeInfo.imageLinks) {
-            book.volumeInfo.imageLinks = {};
-            book.volumeInfo.imageLinks.thumbnail = 'https://riossport.ru/local/templates/riossport/assets/images/no-image.png';
-          }
-          if (!book.volumeInfo.categories) {
-            book.volumeInfo.categories = 'No categories';
-          }
-          if (!book.volumeInfo.authors) {
-            book.volumeInfo.authors = 'No authors';
-          }
-          return book;
-        }).map(book => (
-        <BookItem
-          key={book.id + book.etag}
-          imageLink={book.volumeInfo.imageLinks.thumbnail}
-          category={book.volumeInfo.categories}
-          bookTitle={book.volumeInfo.title}
-          author={book.volumeInfo.authors}
-        />
-      ))
+        data.map(book => (
+          <BookItem
+            key={book.id + book.etag}
+            thumbnail={book.volumeInfo?.imageLinks?.thumbnail}
+            category={book.volumeInfo?.categories}
+            bookTitle={book.volumeInfo.title}
+            author={book.volumeInfo?.authors}
+          />
+        ))
       }
+      </div>
+      <Loader
+        visibility={loaderVisibility}
+      />
       <PaginationButton
         loadMore={loadMore}
         bookTitle={bookTitle} 
@@ -97,7 +82,6 @@ function App() {
         visibility={!!bookTitle}
         resultsValue={resultsValue}
       />
-      </div>
     </div>
   )
 }
