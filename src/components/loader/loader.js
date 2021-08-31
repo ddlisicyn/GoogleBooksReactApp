@@ -1,5 +1,5 @@
 import React from 'react';
-import spinner from './spinner.svg';
+import spinner from '../../img/spinner.svg';
 
 export default function Loader({visibility}) {
     return (

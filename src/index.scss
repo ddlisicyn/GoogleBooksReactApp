@@ -1,8 +1,9 @@
-@import 'components/searchPanel/searchPanel.scss';
-@import 'components/selectors/selectors.scss';
-@import 'components/bookItem/bookItem.scss';
-@import 'components/paginationButton/paginationButton.scss';
-@import 'components/loader/loader.scss';
+@import 'components/SearchPanel/SearchPanel.scss';
+@import 'components/Selectors/Selectors.scss';
+@import 'components/BookCard/BookCard.scss';
+@import 'containers/BookDetails/BookDetails.scss';
+@import 'components/PaginationButton/PaginationButton.scss';
+@import 'components/Loader/Loader.scss';
 
 body {
     margin: 0;
@@ -28,6 +29,10 @@ code {
     display: flex;
     flex-wrap: wrap;
     width: calc(280px * 5);
+
+    a {
+        text-decoration: none;
+    }
 }
 
 @media (max-width: 1440px) {
