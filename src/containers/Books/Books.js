@@ -8,7 +8,7 @@ import { getBooks } from '../../API/fetch';
 
 function Books() {
   const [data, setData] = useState([]);
-  const [resultsValue, setResultsValue] = useState('0');
+  const [resultsValue, setResultsValue] = useState(0);
   const [bookTitle, setBookTitle] = useState('');
   const [sort, setSort] = useState('');
   const [category, setCategory] = useState('');
