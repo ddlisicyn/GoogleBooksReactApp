@@ -4,7 +4,7 @@ import BookCard from '../../components/BookCard/BookCard';
 import PaginationButton from '../../components/PaginationButton/PaginationButton';
 import SearchPanel from '../../components/SearchPanel/SearchPanel';
 import Loader from '../../components/Loader/Loader';
-import { getBooks } from '../../API/fetch';
+import { getBooks } from '../../api/bookService';
 
 function Books() {
   const [data, setData] = useState([]);
@@ -25,13 +25,8 @@ function Books() {
       getBooks(bookTitle, sort, category)
         .then(data => {
             setLoaderVisibility(true);
-            if (data.totalItems) {
-                setData(data.items);
-                setResultsValue(data.totalItems);
-            } else {
-                setData([]);
-                setResultsValue(data.totalItems);
-            }
+            setData(data.items || []);
+            setResultsValue(data.totalItems);
       });
     }
   };
@@ -66,10 +61,7 @@ function Books() {
           data.map(book => (
             <BookCard
               key={book.id + book.etag}
-              thumbnail={book.volumeInfo?.imageLinks?.thumbnail}
-              category={book.volumeInfo?.categories}
-              bookTitle={book.volumeInfo.title}
-              authors={book.volumeInfo?.authors}
+              bookInfo={book}
               onClick={() => onBookClick(book.id)}
             />
           ))

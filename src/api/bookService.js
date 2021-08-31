@@ -1,3 +1,5 @@
+import { getData } from './helper';
+
 const path = 'https://www.googleapis.com/books/v1/';
 
 const getBooks = (bookTitle, sort, category, startIndex = 0, maxResults = 30) => {
@@ -14,16 +16,5 @@ const getBookById = (id) => {
     return getData(url);
 }
 
-const getData = async (url) => {
-    let response = await fetch(url);
-
-    if (!response.ok) {
-        throw new Error(`Could not fetch ${url}, status: ${response.status}`);
-    }
-
-    return await response.json();
-}
-
-export { getData };
 export { getBooks };
 export { getBookById };

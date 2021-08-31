@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
-import { getBookById } from '../../API/fetch';
+import { getBookById } from '../../api/bookService';
 import bookCover from "../../img/noThumbnail.png";
 import spinner from "../../img/spinner.svg";
 
@@ -13,13 +13,14 @@ export function BookDetails() {
             .then(book => setBook(book));
     }, []);
 
-    let { volumeInfo: {
-        authors,
-        categories,
-        title,
-        description,
-        infoLink
-        } } = book;
+    let {volumeInfo: {
+            authors,
+            categories,
+            title,
+            description,
+            infoLink
+            }
+        } = book;
     
     let thumbnail = book.volumeInfo?.imageLinks?.thumbnail;
     
